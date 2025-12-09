@@ -28,14 +28,15 @@ app.get('/', (req, res) => {
 });
 
 const transactionRoutes = require('./routes/transactions');
-app.use('/api/transactions', transactionRoutes);
-
 // Routes
 app.use('/api/customers', require('./routes/customers'));
 app.use('/api/cans', require('./routes/cans'));
-app.use('/api/transactions', require('./routes/transactions'));
+app.use('/api/transactions', require('./routes/transactions')); // Kept this one
 
+const PORT = process.env.PORT || 4000;
 
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+module.exports = app;
